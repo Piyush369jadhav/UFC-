@@ -14,6 +14,8 @@ self.addEventListener('activate', (event) => {
   console.log('Service Worker activating.');
 });
 
-// The main purpose of this service worker in this app is to exist,
-// allowing the main application thread to use navigator.serviceWorker.ready
-// to schedule notifications via the Notification Triggers API.
+// The fetch event is required for the browser to consider the app "installable".
+// For now, we perform a simple pass-through to the network.
+self.addEventListener('fetch', (event) => {
+  event.respondWith(fetch(event.request));
+});
